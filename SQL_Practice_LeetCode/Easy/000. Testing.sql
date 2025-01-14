@@ -1,1 +1,0 @@
-/* Write an sql solution to delete. */ \n delete * from data;
