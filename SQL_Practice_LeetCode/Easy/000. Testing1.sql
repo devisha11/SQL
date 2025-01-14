@@ -1,1 +1,0 @@
-/* Write an sql solution to select. */ \n select * from data;
