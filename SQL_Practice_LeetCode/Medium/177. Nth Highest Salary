@@ -1,0 +1,48 @@
+/* Write a solution to find the nth highest salary from the Employee table if there is no nth highest salary, return null. 
+ The result format is in the following example. 
+  
+ Input:  
+ Employee table: 
+ +----+--------+ 
+ | id | salary | 
+ +----+--------+ 
+ | 1  | 100    | 
+ | 2  | 200    | 
+ | 3  | 300    | 
+ +----+--------+ 
+ n = 2 
+  
+ Output:  
+ +------------------------+ 
+ | getNthHighestSalary(2) | 
+ +------------------------+ 
+ | 200                    | 
+ +------------------------+ 
+  
+ Example 2: 
+  
+ Input:  
+ Employee table: 
+ +----+--------+ 
+ | id | salary | 
+ +----+--------+ 
+ | 1  | 100    | 
+ +----+--------+ 
+ n = 2 
+  
+ Output:  
+ +------------------------+ 
+ | getNthHighestSalary(2) | 
+ +------------------------+ 
+ | null                   | 
+ +------------------------+ */ 
+  
+ CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT 
+ BEGIN 
+   RETURN ( 
+       WITH cte AS( 
+         SELECT salary, dense_rank() OVER(ORDER BY salary desc) AS "rnk" 
+         FROM employee) 
+         SELECT salary FROM cte WHERE rnk=N 
+   ); 
+ END
