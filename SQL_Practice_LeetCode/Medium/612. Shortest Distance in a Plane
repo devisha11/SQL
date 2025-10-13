@@ -1,0 +1,30 @@
+/* Write a solution to report the shortest distance between any two points from the Point2D table. Round the distance to two decimal points. 
+  
+ The result format is in the following example. 
+  
+ Example 1: 
+  
+ Input:  
+ Point2D table: 
+ +----+----+ 
+ | x  | y  | 
+ +----+----+ 
+ | -1 | -1 | 
+ | 0  | 0  | 
+ | -1 | -2 | 
+ +----+----+ 
+  
+ Output:  
+ +----------+ 
+ | shortest | 
+ +----------+ 
+ | 1.00     | 
+ +----------+ 
+  
+ Explanation: The shortest distance is 1.00 from point (-1, -1) to (-1, 2).  */ 
+  
+  
+ SQL: 
+ SELECT ROUND(MIN(SQRT(POW(b.x-a.x,2) + POW(b.y-a.y,2))), 2) AS Shortest  
+ FROM coord a JOIN coord b 
+ WHERE a.x!=b.x or a.y!=b.y;
