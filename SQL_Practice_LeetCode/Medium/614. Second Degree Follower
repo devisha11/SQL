@@ -1,9 +1,6 @@
-/*  A second-degree follower is a user who: 
- follows at least one user, and 
- is followed by at least one user. 
-  
- Write a solution to report the second-degree users and the number of their followers. 
+/*  Write a solution to report the second-degree users and the number of their followers. 
  Return the result table ordered by follower in alphabetical order. 
+  
  The result format is in the following example. 
   
  Example 1: 
@@ -34,13 +31,6 @@
   
   
  Code: 
- WITH cte AS 
- ( 
-     SELECT f.*  
-     FROM follow f  
-     JOIN follow f1 
-     ON f.followee=f1.follower 
- ) 
- SELECT followee, COUNT(*) AS num  
- FROM cte 
+ SELECT followee, COUNT(*) FROM follow 
+ WHERE followee IN (SELECT follower FROM follow) 
  GROUP BY followee;
