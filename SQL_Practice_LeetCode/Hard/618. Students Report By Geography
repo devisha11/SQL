@@ -1,0 +1,50 @@
+/* A U.S graduate school has students from Asia, Europe and America. The students' location information are stored in table student as below. 
+   
+ +--------------------+ 
+ | name   | continent | 
+ |--------|-----------| 
+ | Jack   | America   | 
+ | Pascal | Europe    | 
+ | Xi     | Asia      | 
+ | Jane   | America   | 
+ +--------------------+ 
+  
+ Pivot the continent column in this table so that each name is sorted alphabetically and displayed underneath its corresponding continent. The output headers should be America, Asia and Europe respectively. It is guaranteed that the student number from America is no less than either Asia or Europe. 
+   
+  
+ For the sample input, the output is: 
+   
+ +-------------------------+ 
+ | America | Asia | Europe | 
+ |---------|------|--------| 
+ | Jack    | Xi   | Pascal | 
+ | Jane    |      |        |   
+ +-------------------------+  */ 
+  
+  
+ Code: 
+ WITH america AS  
+ ( 
+     SELECT name AS America, ROW_NUMBER() OVER (ORDER BY name) AS rn 
+     FROM student 
+     WHERE continent = 'America' 
+ ), 
+ europe AS  
+ ( 
+     SELECT name AS Europe, ROW_NUMBER() OVER (ORDER BY name) AS rn 
+     FROM student 
+     WHERE continent = 'Europe' 
+ ), 
+ asia AS  
+ ( 
+     SELECT name AS Asia, ROW_NUMBER() OVER (ORDER BY name) AS rn 
+     FROM student 
+     WHERE continent = 'Asia' 
+ ) 
+ SELECT  
+     a.America,  
+     e.Europe,  
+     s.Asia 
+ FROM america a 
+ LEFT JOIN europe e ON a.rn = e.rn 
+ LEFT JOIN asia s ON a.rn = s.rn;
